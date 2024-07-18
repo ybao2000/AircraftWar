@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LoginPanel : MonoBehaviour
 {
     public Button btnLogin;
-    public GameManager gameManager;
+    // public GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +17,14 @@ public class LoginPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void btnLoginClick(){
+    private void btnLoginClick()
+    {
         // inside this function, you are going to use GameManager to switch scene
-        gameManager.LoadScene_02_Options();
+        // gameManager.LoadScene_02_Options();
+        // GameManager.LoadScene_02_Options();
+        GameManager.instance.LoadScene_02_Options();
     }
 }

@@ -64,9 +64,14 @@
     <Analyzer Include="D:\Program Files\Unity\Hub\Editor\2022.3.25f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\UI\LoginPanel.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\LoginPanel.cs" />
+    <Compile Include="Assets\Scripts\Tools\SkyRotation.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerControl.cs" />
+    <Compile Include="Assets\Scripts\UI\OptionsPanel.cs" />
     <Compile Include="Assets\Scripts\Test\TestLoadScene.cs" />
+    <Compile Include="Assets\Scripts\Test\TestForEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -84,6 +89,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\StarSparrow\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
