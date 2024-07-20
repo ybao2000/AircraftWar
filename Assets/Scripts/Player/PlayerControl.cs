@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    public GameObject bullet;
+    public GameObject launchPad;
     public float speed = 10;
+    private float timer = 0.5f; // it should be loaded initially
+    public float LoadTime = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +18,12 @@ public class PlayerControl : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        move();
+        attack();
+    }
+
+    private void move()
     {
         float h = Input.GetAxis("Horizontal");  // x direction
         float v = Input.GetAxis("Vertical");    // z direction
@@ -23,5 +34,48 @@ public class PlayerControl : MonoBehaviour
             transform.Translate(new Vector3(h, 0, v) * speed * Time.deltaTime, Space.World); // global coordinator
             transform.eulerAngles = new Vector3(v * 15, 0, h * -30);
         }
+    }
+
+    private void attack()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            timer += Time.deltaTime;
+            if (timer >= LoadTime)
+            {
+                shootBullet();
+                timer = 0;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            timer += Time.deltaTime;
+            if (timer >= LoadTime)
+            {
+                shootBullets();
+                timer = 0;
+            }
+        }
+    }
+
+    private void shootBullet()
+    {
+        // this is just one bullet
+        GameObject clone = Instantiate(bullet);
+        clone.transform.position = launchPad.transform.position;
+    }
+
+    private void shootBullets()
+    {
+        float interval = 10;
+        // this is going to shoot 5 bullets
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject clone = Instantiate(bullet);
+            clone.transform.position = launchPad.transform.position;
+            clone.transform.eulerAngles = new Vector3(0, (i - 2) * interval, 0);
+        }
+
     }
 }
