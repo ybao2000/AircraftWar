@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
     public float speed = 10;
     private float timer = 0.5f; // it should be loaded initially
     public float LoadTime = 0.5f;
-
+    private float totTimer = 0; // this is the count all (both pressed or not-pressed)
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +38,8 @@ public class PlayerControl : MonoBehaviour
 
     private void attack()
     {
-        if (Input.GetKey(KeyCode.Space))
+        totTimer += Time.deltaTime;
+        if (Input.GetKey(KeyCode.Space)) // this one is to avoid when holding, shoot continuously
         {
             timer += Time.deltaTime;
             if (timer >= LoadTime)
@@ -47,20 +48,28 @@ public class PlayerControl : MonoBehaviour
                 timer = 0;
             }
         }
-
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            timer += Time.deltaTime;
-            if (timer >= LoadTime)
+            if (totTimer >= LoadTime)
             {
-                shootBullets();
-                timer = 0;
+                timer = LoadTime;
+                totTimer = 0;
             }
         }
+        // if (Input.GetKey(KeyCode.R))
+        // {
+        //     timer += Time.deltaTime;
+        //     if (timer >= LoadTime)
+        //     {
+        //         shootBullets();
+        //         timer = 0;
+        //     }
+        // }
     }
 
     private void shootBullet()
     {
+        Debug.Log("shoot bullet");
         // this is just one bullet
         GameObject clone = Instantiate(bullet);
         clone.transform.position = launchPad.transform.position;
