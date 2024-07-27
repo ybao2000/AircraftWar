@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject launchPad;
+    public float hp = 100;
     public float speed = 10;
     private float timer = 0.5f; // it should be loaded initially
     public float LoadTime = 0.5f;
@@ -19,6 +21,10 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (hp <= 0)
+        {
+            die();
+        }
         move();
         attack();
     }
@@ -85,6 +91,37 @@ public class PlayerControl : MonoBehaviour
             clone.transform.position = launchPad.transform.position;
             clone.transform.eulerAngles = new Vector3(0, (i - 2) * interval, 0);
         }
+    }
 
+    public AudioSource audio_hit;
+    public AudioSource audio_dead;
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "EnemyBullet")
+        {
+            audio_hit.Play();
+            hp -= other.gameObject.GetComponent<EnemyBullet>().hurt;
+            Debug.Log($"player hp: {hp} ");
+            Destroy(other.gameObject);
+        }
+        // else if (other.gameObject.tag == "EnemyBullet2")
+        // {
+        //     audio_hit.Play();
+        //     hp -= other.gameObject.GetComponent<EnemyBullet2>().hurt;
+        //     Destroy(other.gameObject);
+        // }
+        else if (other.gameObject.tag == "Enemy")
+        {
+            audio_hit.Play();
+            hp -= other.gameObject.GetComponent<Enemy>().hurt;
+            Debug.Log($"player hp: {hp} ");
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void die()
+    {
+        audio_dead.Play();
+        // todo - go back to the option page
     }
 }

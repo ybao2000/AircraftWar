@@ -67,11 +67,14 @@
     <Compile Include="Assets\Scripts\Tools\PlanetRotation.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
     <Compile Include="Assets\Scripts\Bullet\PlayerBullet.cs" />
+    <Compile Include="Assets\Scripts\Test\TestRayScan.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyGeneration.cs" />
     <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\Scripts\UI\LoginPanel.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Tools\SkyRotation.cs" />
+    <Compile Include="Assets\Scripts\Bullet\EnemyBullet2.cs" />
+    <Compile Include="Assets\Scripts\RaySixDirCollision.cs" />
     <Compile Include="Assets\Scripts\Bg\BgControl.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\UI\OptionsPanel.cs" />
@@ -99,6 +102,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\UnityTechnologies\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
