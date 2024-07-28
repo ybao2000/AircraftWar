@@ -37,6 +37,7 @@ public class OptionsPanel : MonoBehaviour
         showIdx--;
         if (showIdx < 0) showIdx = players.Length - 1;
         players[showIdx].SetActive(true);
+        GameManager.instance.playerIdx = showIdx;
     }
 
     private void nextBtnClick()
@@ -45,5 +46,6 @@ public class OptionsPanel : MonoBehaviour
         showIdx++;
         if (showIdx >= players.Length) showIdx = 0;
         players[showIdx].SetActive(true);
+        GameManager.instance.playerIdx = showIdx;
     }
 }

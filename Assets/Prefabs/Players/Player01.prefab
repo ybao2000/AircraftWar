@@ -9841,7 +9841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 5242596767896381590, guid: 751bf4004d8483c46aa6222bc8f981e6, type: 3}
   launchPad: {fileID: 6187647648783333285}
-  hp: 10
+  hp: 100
   speed: 10
   LoadTime: 0.5
   audio_hit: {fileID: 2273762523846737666}

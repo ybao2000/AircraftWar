@@ -11,7 +11,9 @@ public class CameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameManager.instance.GetCurPlayer();
         offset = transform.position - player.transform.position;
+
     }
 
     // Update is called once per frame

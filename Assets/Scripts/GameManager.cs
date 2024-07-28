@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     // problem is when to initialize the instance?
     private FightPanel fightPanel;
+    public GameObject[] Players;
+    public int playerIdx = 0;
+    private GameObject curPlayer;
+    public AudioSource audioSource;
     // too late!!! You have to initialize instance before Start!
     // how???
     void Awake()
@@ -26,12 +30,31 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         // a trigger: after a scened is loaded, function sceneLoadCompleted will be called
         SceneManager.sceneLoaded += sceneLoadCompleted;  // event and delegate
+        audioSource.volume = 0.5f;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(10, 10, 100, 50), "Play music"))
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        if (GUI.Button(new Rect(10, 70, 100, 50), "Stop music"))
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
     }
 
     #region load scenes
@@ -47,7 +70,23 @@ public class GameManager : MonoBehaviour
 
     private void sceneLoadCompleted(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log($"SceneLoadCompleted for scene {scene.name}");
+        // Debug.Log($"SceneLoadCompleted for scene {scene.name}");
+        if (scene.buildIndex == 2)
+        {
+            // if fight scene
+            instantiatePlayer();
+        }
+    }
+
+    private void instantiatePlayer()
+    {
+        // clone from the prefab
+        curPlayer = Instantiate(Players[playerIdx], new Vector3(0, 0, 0), Quaternion.identity);
+    }
+
+    public GameObject GetCurPlayer()
+    {
+        return curPlayer;
     }
     #endregion
     #region for fight panel
@@ -61,7 +100,10 @@ public class GameManager : MonoBehaviour
     }
     public void SetHP(int hp)
     {
-        this.fightPanel.SetHP(hp);
+        if (this.fightPanel != null)
+        {
+            this.fightPanel.SetHP(hp);
+        }
     }
 
     public void SetGameOver()

@@ -16,7 +16,7 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameManager.instance.SetHP((int)hp);
     }
 
     // Update is called once per frame
