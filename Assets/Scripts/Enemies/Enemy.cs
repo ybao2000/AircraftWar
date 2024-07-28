@@ -83,13 +83,13 @@ public class Enemy : MonoBehaviour
             switch (dir)
             {
                 case DIR.FRONT:
-                    rigidbody.AddRelativeForce(Vector3.right * 30);
+                    rigidbody.AddRelativeForce(Vector3.right * 50);
                     break;
                 case DIR.LEFT:
-                    rigidbody.AddRelativeForce(Vector3.right * 30);
+                    rigidbody.AddRelativeForce(Vector3.right * 50);
                     break;
                 case DIR.RIGHT:
-                    rigidbody.AddRelativeForce(Vector3.left * 30);
+                    rigidbody.AddRelativeForce(Vector3.left * 50);
                     break;
                 default:
                     break;
