@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // design pattern: singleton
+    // design pattern: singleton    
     public static GameManager instance;
     // Start is called before the first frame update
     // problem is when to initialize the instance?
-
+    private FightPanel fightPanel;
     // too late!!! You have to initialize instance before Start!
     // how???
     void Awake()
@@ -48,6 +48,25 @@ public class GameManager : MonoBehaviour
     private void sceneLoadCompleted(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"SceneLoadCompleted for scene {scene.name}");
+    }
+    #endregion
+    #region for fight panel
+    public void SetFightPanel(FightPanel fightPanel)
+    {
+        this.fightPanel = fightPanel;
+    }
+    public void AddScore(int val)
+    {
+        this.fightPanel.AddScore(val);
+    }
+    public void SetHP(int hp)
+    {
+        this.fightPanel.SetHP(hp);
+    }
+
+    public void SetGameOver()
+    {
+        this.fightPanel.SetGameOver();
     }
     #endregion
 }

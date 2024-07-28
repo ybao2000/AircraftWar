@@ -11,10 +11,12 @@ public class Enemy : MonoBehaviour
     public float speed = 4;
     public float hp = 100;
     public float hurt = 10;
+    public int score = 20;
     private float timer = 0;
     public float attackInterval = 5; // how frequent enemy attacks
     private new Rigidbody rigidbody;
     private RaySixDirCollision raySixDirCollision;
+    private bool isDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,18 +33,29 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hp <= 0)
+        if (!isDead)
         {
-            die();
+            if (hp <= 0)
+            {
+                die();
+            }
+            else
+            {
+                raySixDirCollision.RaySixDirCollisionUpdate(this.transform);
+                move();
+                attack();
+
+                if (timer > 30)
+                {
+                    Destroy(this.gameObject);
+                }
+            }
         }
         else
-        {
-            raySixDirCollision.RaySixDirCollisionUpdate(this.transform);
-            move();
-            attack();
-
-            if (timer > 30)
-            {
+        { // marked as dead
+            timer += Time.deltaTime;
+            if (timer >= 1.5)
+            { // wait for 1.5 seconds
                 Destroy(this.gameObject);
             }
         }
@@ -134,6 +147,8 @@ public class Enemy : MonoBehaviour
 
     private void die()
     {
+        isDead = true;
+        timer = 0;
         audioSource.Play();
         // animation
         rigidbody.useGravity = true;
@@ -143,6 +158,8 @@ public class Enemy : MonoBehaviour
         GameObject obj = Instantiate(boomEffect02);
         obj.transform.position = this.transform.position;
         Destroy(obj, 1f);
-        Destroy(this.gameObject);
+        // you need to update the score
+        // this is a hard problem: answer is using GameManager
+        GameManager.instance.AddScore(score);
     }
 }

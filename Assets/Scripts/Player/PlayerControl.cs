@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour
     private float timer = 0.5f; // it should be loaded initially
     public float LoadTime = 0.5f;
     private float totTimer = 0; // this is the count all (both pressed or not-pressed)
+    private bool isDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +22,15 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hp <= 0)
+        if (!isDead)
         {
-            die();
+            if (hp <= 0)
+            {
+                die();
+            }
+            move();
+            attack();
         }
-        move();
-        attack();
     }
 
     private void move()
@@ -35,6 +39,11 @@ public class PlayerControl : MonoBehaviour
         float v = Input.GetAxis("Vertical");    // z direction
         // Debug.Log($"h: {h}, v: {v}"); // h, v are a float between [-1, 1];
         // check if h or v is not zero
+        // we should restrict the move of the player
+        if (transform.position.x <= -50 && h < 0) h = 0;
+        else if (transform.position.x >= 50 && h > 0) h = 0;
+        if (transform.position.z >= 30 && v > 0) v = 0;
+        else if (transform.position.z <= 0 && v < 0) v = 0;
         if (h != 0 || v != 0)
         {
             transform.Translate(new Vector3(h, 0, v) * speed * Time.deltaTime, Space.World); // global coordinator
@@ -73,7 +82,7 @@ public class PlayerControl : MonoBehaviour
         // }
     }
 
-    private void shootBullet()
+    protected virtual void shootBullet()
     {
         Debug.Log("shoot bullet");
         // this is just one bullet
@@ -81,17 +90,7 @@ public class PlayerControl : MonoBehaviour
         clone.transform.position = launchPad.transform.position;
     }
 
-    private void shootBullets()
-    {
-        float interval = 10;
-        // this is going to shoot 5 bullets
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject clone = Instantiate(bullet);
-            clone.transform.position = launchPad.transform.position;
-            clone.transform.eulerAngles = new Vector3(0, (i - 2) * interval, 0);
-        }
-    }
+
 
     public AudioSource audio_hit;
     public AudioSource audio_dead;
@@ -99,10 +98,11 @@ public class PlayerControl : MonoBehaviour
     {
         if (other.gameObject.tag == "EnemyBullet")
         {
-            audio_hit.Play();
             hp -= other.gameObject.GetComponent<EnemyBullet>().hurt;
-            Debug.Log($"player hp: {hp} ");
             Destroy(other.gameObject);
+            audio_hit.Play();
+            Debug.Log($"player hp: {hp} ");
+            GameManager.instance.SetHP((int)hp);
         }
         // else if (other.gameObject.tag == "EnemyBullet2")
         // {
@@ -112,16 +112,21 @@ public class PlayerControl : MonoBehaviour
         // }
         else if (other.gameObject.tag == "Enemy")
         {
-            audio_hit.Play();
             hp -= other.gameObject.GetComponent<Enemy>().hurt;
-            Debug.Log($"player hp: {hp} ");
             Destroy(other.gameObject);
+            audio_hit.Play();
+            Debug.Log($"player hp: {hp} ");
+            GameManager.instance.SetHP((int)hp);
         }
     }
 
     private void die()
     {
+        isDead = true;
+        Time.timeScale = 0; //0 will pause the game        
         audio_dead.Play();
-        // todo - go back to the option page
+        // 1. we should pause the game, no more enemy and bullet
+        // 2. need a pause page, then click it back to the option page
+        GameManager.instance.SetGameOver();
     }
 }
