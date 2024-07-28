@@ -12,7 +12,7 @@ public class EnemyBullet2 : EnemyBullet
             // after 5 seconds
             Destroy(this.gameObject);
         }
-        transform.rotation = new Quaternion(0, transform.eulerAngles.y, 0, 0.2f);
+        transform.rotation = new Quaternion(0, 0, 0, -1);
         transform.Translate(new Vector3(0, 0, -1) * speed * Time.deltaTime);
     }
 }

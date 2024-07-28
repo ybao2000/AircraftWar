@@ -72,11 +72,11 @@ public class Enemy : MonoBehaviour
             Quaternion.LookRotation(new Vector3(0, 0, -100)), 0.02f);
         if (this.transform.position.y > 0)
         {
-            rigidbody.AddForce(Vector3.down * 3);
+            rigidbody.AddForce(Vector3.down * 6);
         }
         else if (this.transform.position.y < 0)
         {
-            rigidbody.AddForce(Vector3.up * 3);
+            rigidbody.AddForce(Vector3.up * 6);
         }
         raySixDirCollision.SixRaycast((dir, hit) =>
         {
@@ -152,8 +152,8 @@ public class Enemy : MonoBehaviour
         audioSource.Play();
         // animation
         rigidbody.useGravity = true;
-        rigidbody.AddForceAtPosition(Vector3.up,
-            transform.position + new Vector3(5, 0, 0), ForceMode.Impulse
+        rigidbody.AddForceAtPosition(Vector3.up * 5,
+            transform.position + new Vector3(3, 0, 0), ForceMode.Impulse
         );
         GameObject obj = Instantiate(boomEffect02);
         obj.transform.position = this.transform.position;

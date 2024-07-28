@@ -56,6 +56,8 @@ MonoBehaviour:
   - {fileID: 8547020015256086363}
   speed: 6
   hp: 20
+  hurt: 10
+  score: 20
   attackInterval: 2
   boomEffect01: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8, type: 3}
   boomEffect02: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
@@ -310,10 +312,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8547020015256086363}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2.253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4977697744252488345}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
